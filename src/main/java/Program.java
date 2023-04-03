@@ -15,18 +15,23 @@
 
 public class Program {
     public static void main(String[] args) {
-        int[] array = {1, 2, 3};
-        ErrorCodeOrElements el = getElement(array, 123);
+        int[] array = null;
+        ErrorCodeOrElements el = getElement(array, 1);
         System.out.println(el.element + ", " + el.code + ", " + el.text);
 
     }
 
     static ErrorCodeOrElements getElement(int[] array, int position) {
+        if (array == null) {
+            return new ErrorCodeOrElements(false, -1, -3, "данный массив null");
+        }
         if (position >= 0 && position < array.length) {
             return new ErrorCodeOrElements(false, array[position], 1, "успешно");
-        } else {
-            return new ErrorCodeOrElements(true, position, -1, "не верно");
         }
+        if (position < 0 || position >= array.length){
+            return new ErrorCodeOrElements(true, position, Error.IndexOutOfRange, "искомый элемент не найден");
+        }
+        else return new ErrorCodeOrElements(false, array[position], 1, "успешно");
 
     }
 
@@ -44,4 +49,9 @@ public class Program {
         String text;
 
     }
+
+    class Error {
+        public static int IndexOutOfRange = -1;
+    }
 }
+
