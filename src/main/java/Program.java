@@ -17,8 +17,8 @@ public class Program {
     public static void main(String[] args) {
         int[] array = null;
         ErrorCodeOrElements el = getElement(array, 1);
-        System.out.println(el.element + ", " + el.code + ", " + el.text);
-
+        System.out.println("flag:" + el.flag + ", element:" + el.element + ", code of mistake:" + el.code
+                + ", message:"+ el.text);
     }
 
     static ErrorCodeOrElements getElement(int[] array, int position) {
