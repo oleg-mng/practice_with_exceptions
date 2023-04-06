@@ -1,16 +1,23 @@
 import java.text.Format;
 
 public class AppSaveAs {
+    public static void main(String[] args) {
+        DocApp.run();
+    }
+}
     class Word {
         Format format;
-        public void setFormat(Format format){
+
+        public void setFormat(Format format) {
             this.format = format;
         }
+
         StringBuilder sb = new StringBuilder();
 
         public Word(Format f) {
-            if (f != null) format = f;
-            else format = DefaultFormat();
+            format = new Proxy(f);
+//            if (f != null) format = f;
+//            else format = DefaultFormat();
         }
 
         public void append(String line) {
@@ -22,7 +29,7 @@ public class AppSaveAs {
         }
     }
 
-    interface Format{
+    interface Format {
         void Save(String path, String data);
     }
 
@@ -32,12 +39,14 @@ public class AppSaveAs {
             System.out.println("File save DocFormat..." + path + "data: \n" + data);
         }
     }
+
     class DocxFormat {
         @Override
         public void Save(String path, String data) {
             System.out.println("File save DocxFormat..." + path + "data: \n" + data);
         }
     }
+
     class TxtFormat {
         @Override
         public void Save(String path, String data) {
@@ -71,4 +80,16 @@ public class AppSaveAs {
             System.out.println("Формат не определен");
         }
     }
+    class Proxy implements Format {
+        Format format;
+        public Proxy(Format f){
+            if (f == null) format = DefaultFormat();
+            else format = f;
+        }
+    }
+    @Override
+    public void Save(String path, String data) {
+        format.Save(path, data);
+    }
 }
+
