@@ -1,20 +1,41 @@
 import java.text.Format;
 
 public class AppSaveAs {
-    public Word (Format f){
-        if (f != null) format = f;
-        else fomat = DefaultFormat();
+    class Word {
+        Format format;
+        public void setFormat(Format format){
+            this.format = format;
+        }
+        StringBuilder sb = new StringBuilder();
+
+        public Word(Format f) {
+            if (f != null) format = f;
+            else format = DefaultFormat();
+        }
+
+        public void append(String line) {
+            sb.append(line + "\n");
+        }
+
+        public void SaveAs(String path) {
+            format.Save(path, sb.toString());
+        }
     }
 
     interface Format{
         void Save(String path, String data);
-
     }
 
     class DocFormat {
         @Override
         public void Save(String path, String data) {
             System.out.println("File save DocFormat..." + path + "data: \n" + data);
+        }
+    }
+    class DocxFormat {
+        @Override
+        public void Save(String path, String data) {
+            System.out.println("File save DocxFormat..." + path + "data: \n" + data);
         }
     }
     class TxtFormat {
@@ -39,7 +60,6 @@ public class AppSaveAs {
             doc.append("line 7");
         }
     }
-
 
     class DefaultFormat implements Format {
         Format format;
