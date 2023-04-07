@@ -33,35 +33,29 @@ public class AppSaveAs {
         void Save(String path, String data);
     }
 
-    class DocFormat {
+    class DocFormat implements Format{
         @Override
         public void Save(String path, String data) {
             System.out.println("File save DocFormat..." + path + "data: \n" + data);
         }
     }
 
-    class DocxFormat {
+    class DocxFormat implements Format {
         @Override
         public void Save(String path, String data) {
             System.out.println("File save DocxFormat..." + path + "data: \n" + data);
         }
     }
 
-    class TxtFormat {
+    class TxtFormat implements Format {
         @Override
         public void Save(String path, String data) {
             System.out.println("File save TxtFormat..." + path + "data: \n" + data);
         }
     }
 
-    class DocFormat implements Format {
-
-    }
-
     class DocApp {
-        static void run
-
-        {
+        static void run() {
             Word doc = new Word(null);
             doc.append("line 1");
             doc.SaveAs("Новый документ 2");
@@ -73,7 +67,8 @@ public class AppSaveAs {
     class DefaultFormat implements Format {
         Format format;
 
-        public DefaultFormat();
+        public DefaultFormat() {
+        }
 
         @Override
         public void Save(String path, String data) {
@@ -86,7 +81,7 @@ public class AppSaveAs {
             if (f == null) format = DefaultFormat();
             else format = f;
         }
-    }
+
     @Override
     public void Save(String path, String data) {
         format.Save(path, data);
