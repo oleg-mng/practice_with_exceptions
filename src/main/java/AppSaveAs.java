@@ -5,19 +5,17 @@ public class AppSaveAs {
         DocApp.run();
     }
 }
+
     class Word {
         Format format;
-
-        public void setFormat(Format format) {
-            this.format = format;
-        }
-
         StringBuilder sb = new StringBuilder();
 
+        public void setFormat(Format format) {
+            this.format = new Proxy(format);
+        }
+
         public Word(Format f) {
-            format = new Proxy(f);
-//            if (f != null) format = f;
-//            else format = DefaultFormat();
+            setFormat(f);
         }
 
         public void append(String line) {
@@ -33,7 +31,7 @@ public class AppSaveAs {
         void Save(String path, String data);
     }
 
-    class DocFormat implements Format{
+    class DocFormat implements Format {
         @Override
         public void Save(String path, String data) {
             System.out.println("File save DocFormat..." + path + "data: \n" + data);
@@ -55,12 +53,13 @@ public class AppSaveAs {
     }
 
     class DocApp {
-        static void run() {
+        void run() {
             Word doc = new Word(null);
             doc.append("line 1");
             doc.SaveAs("Новый документ 2");
-            doc.setFormat(new DocFormat());
+            doc.setFormat(null);
             doc.append("line 7");
+            doc.SaveAs("Новый документ 3");
         }
     }
 
@@ -75,16 +74,19 @@ public class AppSaveAs {
             System.out.println("Формат не определен");
         }
     }
+
     class Proxy implements Format {
         Format format;
-        public Proxy(Format f){
-            if (f == null) format = DefaultFormat();
+
+        public Proxy(Format f) {
+            if (f == null) format = new DefaultFormat();
             else format = f;
         }
 
-    @Override
-    public void Save(String path, String data) {
-        format.Save(path, data);
+        @Override
+        public void Save(String path, String data) {
+            format.Save(path, data);
+        }
     }
-}
+
 
