@@ -4,7 +4,7 @@ public class AppSaveAs {
     public static void main(String[] args) {
         DocApp.run();
     }
-}
+
 
     class Word {
         Format format;
@@ -53,13 +53,13 @@ public class AppSaveAs {
     }
 
     class DocApp {
-        void run() {
+        static void run() {
             Word doc = new Word(null);
             doc.append("line 1");
             doc.SaveAs("Новый документ 2");
-            doc.setFormat(null);
-            doc.append("line 7");
-            doc.SaveAs("Новый документ 3");
+//            doc.setFormat(null);
+//            doc.append("line 7");
+//            doc.SaveAs("Новый документ 3");
         }
     }
 
@@ -85,8 +85,9 @@ public class AppSaveAs {
 
         @Override
         public void Save(String path, String data) {
-            format.Save(path, data);
+            System.out.println("File Proxy..." + path + "data: \n" + data);
         }
     }
+}
 
 
