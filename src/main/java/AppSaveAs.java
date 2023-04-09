@@ -55,9 +55,13 @@ class DocApp {
         Word doc = new Word(null);
         doc.append("line 1");
         doc.SaveAs("Новый документ 2");
-//            doc.setFormat(null);
-//            doc.append("line 7");
-//            doc.SaveAs("Новый документ 3");
+
+        doc.setFormat(null);
+        doc.append("line 7");
+        doc.SaveAs("Новый документ 3");
+
+        DocxFormat q = new DocxFormat();
+        q.Save("some path", "22.22.22");
     }
 }
 
